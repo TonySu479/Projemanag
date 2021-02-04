@@ -74,7 +74,7 @@ class SignUpActivity : BaseActivity() {
                 showErrorSnackBar("Please enter an email address")
                 false
             }
-            TextUtils.isEmpty(email)->{
+            TextUtils.isEmpty(password)->{
                 showErrorSnackBar("Please enter a password")
                 false
             } else -> {
