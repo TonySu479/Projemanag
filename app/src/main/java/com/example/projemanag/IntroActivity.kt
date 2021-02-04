@@ -19,6 +19,9 @@ class IntroActivity : AppCompatActivity() {
         val typeFace: Typeface = Typeface.createFromAsset(assets, "carbon bl.ttf")
         tv_app_name.typeface = typeFace
 
+        btn_sign_in_intro.setOnClickListener {
+            startActivity(Intent(this, SignInActivity::class.java))
+        }
         btn_sign_up_intro.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
