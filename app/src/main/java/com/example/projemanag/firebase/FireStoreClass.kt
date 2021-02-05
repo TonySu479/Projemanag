@@ -1,6 +1,7 @@
 package com.example.projemanag.firebase
 
 import android.util.Log
+import com.example.projemanag.activities.SignInActivity
 import com.example.projemanag.activities.SignUpActivity
 import com.example.projemanag.models.User
 import com.example.projemanag.utils.Constants
@@ -21,7 +22,18 @@ class FireStoreClass {
                 e->
                 Log.e(activity.javaClass.simpleName, "Error")
             }
+    }
 
+    fun signInUser(activity: SignInActivity){
+        mFireStore.collection(Constants.USERS)
+                .document(getCurrentUserId()).get()
+                .addOnSuccessListener { document ->
+                    val loggedInUser = document.toObject(User::class.java)!!
+                    activity.signInSuccess(loggedInUser)
+                }.addOnFailureListener{
+                    e->
+                    Log.e("SignInUser", "Error")
+                }
     }
 
     fun getCurrentUserId(): String{
