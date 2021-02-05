@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import com.example.projemanag.R
+import com.example.projemanag.firebase.FireStoreClass
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -25,7 +26,12 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed({
 
-            startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
+            var currentUserID = FireStoreClass().getCurrentUserId()
+            if(currentUserID.isNotEmpty()){
+                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
+            }
             finish()
         }, 2500)
     }
