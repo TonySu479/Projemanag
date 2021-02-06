@@ -59,6 +59,8 @@
                 android:padding="@dimen/card_view_layout_content_padding">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    app:boxBackgroundColor="@android:color/transparent"
+                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
@@ -74,6 +76,8 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    app:boxBackgroundColor="@android:color/transparent"
+                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
