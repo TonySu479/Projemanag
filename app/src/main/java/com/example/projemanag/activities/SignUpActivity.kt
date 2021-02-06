@@ -6,7 +6,8 @@ import android.text.TextUtils
 import android.view.WindowManager
 import android.widget.Toast
 import com.example.projemanag.R
-import com.example.projemanag.firebase.FireStoreClass
+import com.example.projemanag.firebase.FirestoreClass
+
 import com.example.projemanag.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -62,7 +63,7 @@ class SignUpActivity : BaseActivity() {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
                     val registeredEmail = firebaseUser.email!!
                     val user = User(firebaseUser.uid, name, registeredEmail)
-                    FireStoreClass().registerUser(this@SignUpActivity, user)
+                    FirestoreClass().registerUser(this@SignUpActivity, user)
 
                 } else {
                     Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()

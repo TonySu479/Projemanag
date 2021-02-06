@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
-class FireStoreClass {
+class FirestoreClass {
     private val mFireStore = FirebaseFirestore.getInstance()
 
     fun registerUser(activity: SignUpActivity, userInfo: User){
