@@ -7,10 +7,10 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import com.example.projemanag.R
+import com.example.projemanag.firebase.FirestoreClass
 import com.example.projemanag.models.User
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_in.*
-
 
 class SignInActivity : BaseActivity() {
 
@@ -53,16 +53,13 @@ class SignInActivity : BaseActivity() {
     private fun signInRegisteredUser(){
         val email: String = et_email_sign_in.text.toString().trim{ it <= ' ' }
         val password: String = et_password_sign_in.text.toString().trim{ it <= ' ' }
-
         if(validateForm(email, password)){
             showProgressDialog(resources.getString(R.string.please_wait))
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     hideProgressDialog()
                     if (task.isSuccessful) {
-                        Log.d("Sign in", "signInWithEmail:success")
-                        val user = auth.currentUser
-                        startActivity(Intent(this, MainActivity::class.java))
+                        FirestoreClass().signInUser(this@SignInActivity)
                     } else {
                         Log.w("Sign in", "signInWithEmail:failure", task.exception)
                         Toast.makeText(baseContext, "Authentication failed.",
