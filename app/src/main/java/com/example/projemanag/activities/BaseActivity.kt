@@ -33,7 +33,7 @@ open class BaseActivity : AppCompatActivity() {
         mProgressDialog.dismiss()
     }
 
-    fun getCurrentUserId(): String{
+    fun getCurrentUserID(): String{
         return FirebaseAuth.getInstance().currentUser!!.uid
     }
 

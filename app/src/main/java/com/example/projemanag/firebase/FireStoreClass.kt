@@ -14,7 +14,7 @@ class FireStoreClass {
 
     fun registerUser(activity: SignUpActivity, userInfo: User){
         mFireStore.collection(Constants.USERS)
-            .document(getCurrentUserId()).set(userInfo, SetOptions.merge())
+            .document(getCurrentUserID()).set(userInfo, SetOptions.merge())
             .addOnSuccessListener {
                 activity.userRegisteredSuccess()
             }.addOnFailureListener{
@@ -25,7 +25,7 @@ class FireStoreClass {
 
     fun signInUser(activity: SignInActivity){
         mFireStore.collection(Constants.USERS)
-                .document(getCurrentUserId()).get()
+                .document(getCurrentUserID()).get()
                 .addOnSuccessListener { document ->
                     val loggedInUser = document.toObject(User::class.java)!!
                     activity.signInSuccess(loggedInUser)
@@ -35,7 +35,7 @@ class FireStoreClass {
                 }
     }
 
-    fun getCurrentUserId(): String{
+    fun getCurrentUserID(): String{
 
         var currentUser = FirebaseAuth.getInstance().currentUser
         var currentUserId = ""
