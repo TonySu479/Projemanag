@@ -22,14 +22,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     companion object {
         const val MY_PROFILE_REQUEST_CODE : Int =  11
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupActionBar()
         nav_view.setNavigationItemSelectedListener(this)
         FirestoreClass().loadUserData(this@MainActivity)
+        fab_create_board.setOnClickListener{
+            startActivity(Intent(this, CreateBoardActivity::class.java))
+        }
     }
 
     private fun setupActionBar(){
