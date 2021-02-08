@@ -5,18 +5,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.projemanag.R
+import com.example.projemanag.adadpters.BoardItemsAdapter
 import com.example.projemanag.firebase.FirestoreClass
+import com.example.projemanag.models.Board
 import com.example.projemanag.models.User
 import com.example.projemanag.utils.Constants
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.main_content.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,11 +36,27 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setContentView(R.layout.activity_main)
         setupActionBar()
         nav_view.setNavigationItemSelectedListener(this)
-        FirestoreClass().loadUserData(this@MainActivity)
+        FirestoreClass().loadUserData(this, true)
         fab_create_board.setOnClickListener{
             val intent = Intent(this, CreateBoardActivity::class.java)
             intent.putExtra(Constants.NAME, mUserName)
             startActivity(intent)
+        }
+    }
+
+    fun populateBoardsListToUI(boardsList: ArrayList<Board>){
+        hideProgressDialog()
+        if(boardsList.size > 0){
+            rv_boards_list.visibility = View.VISIBLE
+            tv_no_boards_available.visibility = View.GONE
+            rv_boards_list.layoutManager = LinearLayoutManager(this)
+            rv_boards_list.setHasFixedSize(true)
+
+            val adapter = BoardItemsAdapter(this, boardsList)
+            rv_boards_list.adapter = adapter
+        } else {
+            rv_boards_list.visibility = View.GONE
+            tv_no_boards_available.visibility = View.VISIBLE
         }
     }
 
@@ -81,8 +102,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    fun updateNavigationUserDetails(user: User) {
-
+    fun updateNavigationUserDetails(user: User, readBoardsList: Boolean) {
         val headerView = nav_view.getHeaderView(0)
         val navUserImage = headerView.findViewById<ImageView>(R.id.iv_user_image)
         mUserName = user.name
@@ -96,6 +116,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         val navUsername = headerView.findViewById<TextView>(R.id.tv_username)
         navUsername.text = user.name
+
+        if(readBoardsList){
+            showProgressDialog(resources.getString(R.string.please_wait))
+            FirestoreClass().getBoardList(this)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
