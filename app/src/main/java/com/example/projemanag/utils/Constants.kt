@@ -1,16 +1,14 @@
 package com.example.projemanag.utils
-
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import android.webkit.MimeTypeMap
-import com.example.projemanag.activities.MyProfileActivity
-import com.example.projemanag.utils.Constants.PICK_IMAGE_REQUEST_CODE
 
 object Constants {
     const val USERS: String = "users"
 
+    const val BOARDS: String = "boards"
     const val IMAGE: String = "image"
     const val NAME: String = "name"
     const val MOBILE: String = "mobile"
