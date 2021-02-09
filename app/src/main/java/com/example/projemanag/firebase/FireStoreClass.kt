@@ -44,7 +44,7 @@ class FirestoreClass {
             }
     }
 
-    fun getBoardList(activity: MainActivity){
+    fun getBoardsList(activity: MainActivity){
         mFireStore.collection(Constants.BOARDS)
             .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID())
             .get()
